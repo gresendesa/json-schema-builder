@@ -14,8 +14,7 @@ const Index = () => {
 
     if (!hasVisited) {
       // If not, show the toast and set the flag
-      toast.info("We use Clarity analytics to improve user experience.", {
-        description: "This helps us understand how the app is used and make it better for you.",
+      toast.info("We use browser local storage to keep schemas persistent.", {
         action: {
           label: "Dismiss",
           onClick: () => {
