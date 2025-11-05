@@ -11,6 +11,8 @@ services:
 
 # Use the command to create an external network called 'app' before starting the containers:
 # docker network create app
+# ensure the network is visible to your reverse proxy or other services that need to connect to it.
+# The port inside the container is 80
 networks:
   app:
     external: true
