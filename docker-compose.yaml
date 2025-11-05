@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
   json-schema-builder:
-    # Constrói a imagem usando o Dockerfile no diretório atual
+    # Builds the image using the Dockerfile in the current directory
     build: .
     container_name: json-schema-builder-web
     restart: unless-stopped
     networks:
       - app
 
-# Utilize o comando para criar uma rede externa chamada 'app' antes de iniciar os contêineres:
+# Use the command to create an external network called 'app' before starting the containers:
 # docker network create app
 networks:
   app:

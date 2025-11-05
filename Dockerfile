@@ -1,31 +1,31 @@
-# Estágio 1: Build (Construção)
-# Usamos Node 20, conforme visto na configuração de CI/CD
+# Stage 1: Build
+# Use Node 20, as seen in the CI/CD configuration
 FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Instalar pnpm (usado pelo projeto)
+# Install pnpm (used by the project)
 RUN npm i -g pnpm
 
-# Copiar arquivos de dependência e instalar
+# Copy dependency files and install
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-# Copiar o restante do código-fonte
+# Copy the rest of the source code
 COPY . .
 
-# Executar o script de build
+# Run the build script
 RUN pnpm run build
 
-# Estágio 2: Runtime (Execução)
-# Usar Nginx para servir os arquivos estáticos
+# Stage 2: Runtime
+# Use Nginx to serve the static files
 FROM nginx:alpine AS runtime
 
-# Copiar os arquivos estáticos gerados do estágio de build
+# Copy the static files generated from the build stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expor a porta 80 (padrão do Nginx)
+# Expose port 80 (Nginx default)
 EXPOSE 80
 
-# Comando para iniciar o Nginx
+# Command to start Nginx
 CMD ["nginx", "-g", "daemon off;"]
